@@ -23,29 +23,29 @@ namespace WinformsLabThree
         public Color executableColor = Color.MediumVioletRed;
         public long largeFileThreshold = 1000000;
         public long smallFileThreshold = 10000;
-        public static string treeInText = String.Empty;
+        public ulong totalSize = 0, totalFiles = 0, totalSelected = 0;
         public Form1()
         {
             InitializeComponent();
             this.menuStrip1.Renderer = new FluentDesignRenderer();
             this.toolStrip1.Renderer = new FluentDesignRenderer();
+            this.statusStrip1.Renderer = new FluentDesignRenderer();
             this.listView1.Items.Clear();
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             this.treeView1.Nodes.Clear();// DO NOT UNDER ANY CIRCUMSTANCE REMove THIS THIS BREAKS EVERYTHING
-            // this.listView1.SizeChanged += new EventHandler(ListView_SizeChanged);
             SizeLastColumn(listView1);
+            listView1.Columns[0].Width = listView1.Width * 5 / 10;
+            listView1.Columns[1].Width = listView1.Width * 2 / 10;
+            listView1.Columns[2].Width = listView1.Width * 3 / 10;
         }
-
         private void listView1_Resize(object sender, System.EventArgs e)
         {
             SizeLastColumn((ListView)sender);
         }
-
         private void SizeLastColumn(ListView lv)
         {
             lv.Columns[lv.Columns.Count - 1].Width = -2;
         }
-
         #region Style
         public class FluentDesignRenderer : ToolStripProfessionalRenderer
         {
@@ -82,6 +82,14 @@ namespace WinformsLabThree
             {
                 get { return Color.White; }
             }*/
+            public override Color StatusStripGradientBegin
+            {
+                get { return Color.White; }
+            }
+            public override Color StatusStripGradientEnd
+            {
+                get { return Color.White; }
+            }
             public override Color ToolStripDropDownBackground
             {
                 get { return Color.WhiteSmoke; }
@@ -149,6 +157,7 @@ namespace WinformsLabThree
             if (this.folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 currentFolder = folderBrowserDialog1.SelectedPath;
+                listView1.Items.Clear();
                 this.treeView1.Nodes.Clear();
                 this.treeView1.Nodes.Add(CreateDirectoryNode(new DirectoryInfo(currentFolder)));
             }
@@ -158,7 +167,6 @@ namespace WinformsLabThree
         {
             if (this.saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 btnCreateTreeData(saveFileDialog1.FileName);
-
         }
 
         private void btnCreateTreeData(String filePath)
@@ -180,39 +188,9 @@ namespace WinformsLabThree
         {
             var directoryNode = new TreeNode(directoryInfo.Name);
             foreach (var directory in directoryInfo.GetDirectories())
-            {
-                directoryNode.Nodes.Add(CreateDirectoryNode(directory));
-
-            }
-               
+                directoryNode.Nodes.Add(CreateDirectoryNode(directory));  
             return directoryNode;
         }
-        #region trash
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-        private void loadFilesFromFolder(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
-        #endregion
-
         private void treeView1_AfterSelect_1(object sender, TreeViewEventArgs e)
         {
             int large = 0, medium = 0, small = 0;
@@ -224,6 +202,7 @@ namespace WinformsLabThree
                 FileInfo info = new FileInfo(file);
                 string name = info.Name;
                 string size = info.Length.ToString();
+                totalSize += (ulong)info.Length;
                 if (info.Length > largeFileThreshold)
                     large++;
                 else if (info.Length < smallFileThreshold)
@@ -244,13 +223,14 @@ namespace WinformsLabThree
             items.Add(new ChartItem("Small", small));
             changeColors();
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listView1.Columns[0].Width = listView1.Width * 5 / 10;
+            listView1.Columns[1].Width = listView1.Width * 2 / 10;
+            listView1.Columns[2].Width = listView1.Width * 3 / 10;
             SizeLastColumn(listView1);
+            this.toolStripStatusLabelSize.Text = "Total bytes: "+totalSize;
+            totalFiles = (ulong)listView1.Items.Count;
+            this.toolStripStatusLabelSelected.Text = listView1.CheckedItems.Count + " of " + totalFiles+" items selected";
             drawCharts(items);
-        }
-
-        private void chart1_Click(object sender, EventArgs e)
-        {
-           
         }
         private void drawCharts(List<ChartItem> items)
         {
@@ -291,6 +271,7 @@ namespace WinformsLabThree
         private void listView1_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             drawCheckedItems();
+            this.toolStripStatusLabelSelected.Text = listView1.CheckedItems.Count + " of " + totalFiles + " items selected";
         }
         public void changeColors()
         {
@@ -308,7 +289,6 @@ namespace WinformsLabThree
                         item.BackColor = archiveColor;
                     else if (type == ".exe" || type == ".dll")
                         item.BackColor = executableColor;
-               
                 }
         }
         private void changeColorsButLight()
@@ -344,37 +324,11 @@ namespace WinformsLabThree
             HslColor h = new HslColor(color.GetHue(), color.GetSaturation(), lowest);
             return h.ToRgbColor();
         }
-
-        private void toolStripButton3_Click(object sender, EventArgs e)
-        {
-            new SettingsForm(this).Show();
-        }
-
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
+        #region Font
         private void toolStripButtonFont_Click(object sender, EventArgs e)
         {
             selectFont();
         }
-
-        private void toolStripButton4_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Made by Mikhail Melikov.");
-        }
-
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Made by Mikhail Melikov.");
-        }
-
-        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new SettingsForm(this).Show();
-        }
-
         private void fontToolStripMenuItem_Click(object sender, EventArgs e)
         {
             selectFont();
@@ -385,15 +339,34 @@ namespace WinformsLabThree
             Font f = fontDialog1.Font;
             listView1.Font = f;
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        #endregion
+        #region Help
+        private void toolStripButton4_Click(object sender, EventArgs e)
         {
-
+            ShowHelpMessage();
         }
-
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ShowHelpMessage();
         }
+        private void ShowHelpMessage()
+        {
+            MessageBox.Show("A basic file explorer.\nMade by Mikhail Melikov.");
+        }
+        #endregion
+        #region Color
+        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showColorForm();
+        }
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            showColorForm();
+        }
+        private void showColorForm()
+        {
+            new SettingsForm(this).Show();
+        }
+        #endregion
     }
 }

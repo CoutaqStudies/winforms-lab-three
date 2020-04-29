@@ -31,9 +31,9 @@ namespace WinformsLabThree
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node0");
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node0");
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -62,11 +62,15 @@ namespace WinformsLabThree
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelSize = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelSelected = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -89,7 +93,6 @@ namespace WinformsLabThree
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(809, 479);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // menuStrip1
             // 
@@ -114,7 +117,6 @@ namespace WinformsLabThree
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -122,7 +124,7 @@ namespace WinformsLabThree
             this.openToolStripMenuItem.Image = global::WinformsLabThree.Properties.Resources.OpenFolder_16x;
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.WhiteSmoke;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenClicked);
             // 
@@ -132,7 +134,7 @@ namespace WinformsLabThree
             this.saveToolStripMenuItem.Image = global::WinformsLabThree.Properties.Resources.Save_16x;
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.WhiteSmoke;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveClicked);
             // 
@@ -150,7 +152,7 @@ namespace WinformsLabThree
             this.colorToolStripMenuItem.BackColor = System.Drawing.Color.WhiteSmoke;
             this.colorToolStripMenuItem.Image = global::WinformsLabThree.Properties.Resources.ColorPalette;
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.colorToolStripMenuItem.Text = "Color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
             // 
@@ -159,7 +161,7 @@ namespace WinformsLabThree
             this.fontToolStripMenuItem.BackColor = System.Drawing.Color.WhiteSmoke;
             this.fontToolStripMenuItem.Image = global::WinformsLabThree.Properties.Resources.Aserif;
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.fontToolStripMenuItem.Text = "Font";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
@@ -189,7 +191,6 @@ namespace WinformsLabThree
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripButtonOpen
             // 
@@ -274,10 +275,10 @@ namespace WinformsLabThree
             this.treeView1.Margin = new System.Windows.Forms.Padding(10);
             this.treeView1.MinimumSize = new System.Drawing.Size(4, 50);
             this.treeView1.Name = "treeView1";
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "Node0";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Node0";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode1});
             this.treeView1.Size = new System.Drawing.Size(250, 176);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect_1);
@@ -301,7 +302,6 @@ namespace WinformsLabThree
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listView1_ItemChecked);
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged_1);
             this.listView1.Resize += new System.EventHandler(this.listView1_Resize);
             // 
             // columnHeaderName
@@ -321,26 +321,48 @@ namespace WinformsLabThree
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chart1.Location = new System.Drawing.Point(10, 286);
             this.chart1.Margin = new System.Windows.Forms.Padding(10);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
-            series3.ChartArea = "ChartArea1";
-            series3.Name = "Series";
-            this.chart1.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Name = "Series";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(789, 183);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
             this.chart1.Visible = false;
-            this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.DefaultExt = "txt";
             this.saveFileDialog1.Filter = "Text file (*.txt)|*.txt|Any file (*.*)|*.*";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.White;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelSize,
+            this.toolStripStatusLabelSelected});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 457);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(809, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelSize
+            // 
+            this.toolStripStatusLabelSize.Margin = new System.Windows.Forms.Padding(0, 3, 50, 2);
+            this.toolStripStatusLabelSize.Name = "toolStripStatusLabelSize";
+            this.toolStripStatusLabelSize.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabelSelected
+            // 
+            this.toolStripStatusLabelSelected.Name = "toolStripStatusLabelSelected";
+            this.toolStripStatusLabelSelected.Size = new System.Drawing.Size(0, 17);
             // 
             // Form1
             // 
@@ -348,11 +370,11 @@ namespace WinformsLabThree
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(809, 479);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Обозреватель папок";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -361,7 +383,10 @@ namespace WinformsLabThree
             this.toolStrip1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
         #endregion
@@ -393,6 +418,9 @@ namespace WinformsLabThree
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
         private System.Windows.Forms.FontDialog fontDialog1;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel toolStripStatusLabelSize;
+        private ToolStripStatusLabel toolStripStatusLabelSelected;
     }
 }
 
