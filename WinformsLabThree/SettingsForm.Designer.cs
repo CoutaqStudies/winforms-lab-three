@@ -124,8 +124,9 @@ namespace WinformsLabThree
             this.Controls.Add(this.panelColor);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
-            this.Text = "Настройки цвета";
+            this.Text = "Цвет";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.panelColor.ResumeLayout(false);
             this.panelColor.PerformLayout();
             this.ResumeLayout(false);

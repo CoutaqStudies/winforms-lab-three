@@ -59,5 +59,10 @@ namespace WinformsLabThree
         {
             form.changeColors();
         }
+
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

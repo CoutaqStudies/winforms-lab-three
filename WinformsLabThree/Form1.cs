@@ -17,10 +17,10 @@ namespace WinformsLabThree
     public partial class Form1 : Form
     {
         private String currentFolder;
-        public Color graphicsColor = Color.BlueViolet;
-        public Color officeColor = Color.DarkSalmon;
-        public Color archiveColor = Color.SteelBlue;
-        public Color executableColor = Color.OrangeRed;
+        public Color graphicsColor = Color.Crimson;
+        public Color officeColor = Color.DodgerBlue;
+        public Color archiveColor = Color.Gold;
+        public Color executableColor = Color.MediumVioletRed;
         public long largeFileThreshold = 1000000;
         public long smallFileThreshold = 10000;
         public static string treeInText = String.Empty;
@@ -156,9 +156,6 @@ namespace WinformsLabThree
         }
         private void SaveClicked(object sender, EventArgs e)
         {
-            Console.WriteLine(treeInText);
-            MessageBox.Show(treeInText);
-            string fileName;
             if (this.saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 btnCreateTreeData(saveFileDialog1.FileName);
 
@@ -390,6 +387,11 @@ namespace WinformsLabThree
         }
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
